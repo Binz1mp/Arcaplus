@@ -12,7 +12,7 @@ $(document).ready(function() { // 베라, 핫딜 제외
             postList[i].style.opacity = '0.1';
           // } else if (postList_rate > 3) {
           //   postList[i].style.fontWeight = 'bold';
-          // }
+          }
         }
       }
     }

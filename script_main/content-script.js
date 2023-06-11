@@ -10,9 +10,9 @@ $(document).ready(function() { // 베라, 핫딜 제외
           let postList_rate = postList[i].querySelector('.vcol.col-rate').innerText; // 추천
           if (postList_rate < 0) {
             postList[i].style.opacity = '0.1';
-          } else if (postList_rate > 3) {
-            postList[i].style.fontWeight = 'bold';
-          }
+          // } else if (postList_rate > 3) {
+          //   postList[i].style.fontWeight = 'bold';
+          // }
         }
       }
     }

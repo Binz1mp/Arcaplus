@@ -1,3 +1,12 @@
+const dayjs = require('dayjs');
+var $ = require( "jquery" );
+var utc = require('dayjs/plugin/utc');
+var timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
+var isToday = require('dayjs/plugin/isToday')
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isToday);
+
 $(document).ready(function() { // 베라, 핫딜 제외
   if (window.location.href.indexOf("arca.live/b/") > -1 &&
   window.location.href.indexOf("arca.live/b/live") === -1 &&
@@ -6,18 +15,26 @@ $(document).ready(function() { // 베라, 핫딜 제외
     const listRateCheck = () => { // 추천 체크
       const postList = document.querySelectorAll('a.vrow.column'); // 게시글 리스트
       for (let i = 0; i< postList.length; i++) {
-        if (postList[i].querySelector('.vcol.col-rate') && postList[i].className == 'vrow column') {
+        if (postList[i].querySelector('time') !== null) {
           let postList_rate = postList[i].querySelector('.vcol.col-rate').innerText; // 추천
+          let postList_time = postList[i].querySelector('time').getAttribute('datetime'); // 작성 시간
+          let tzKr = "Asia/Seoul";
+          let postTime = dayjs(postList_time).tz(tzKr);
           if (postList_rate < 0) {
             postList[i].style.opacity = '0.1';
           // } else if (postList_rate > 3) {
           //   postList[i].style.fontWeight = 'bold';
           }
+          if (dayjs(postList_time).tz(tzKr).isToday()) {
+            postList[i].querySelector('time').innerText = postTime.format('HH:mm');
+          } else {
+            postList[i].querySelector('time').innerText = postTime.format('YYYY.MM.DD');
+          }
         }
       }
     }
 
-    const createReloader = $(`<li><span id="Arcaplus_reloader" class=""></span></li>`);
+    const createReloader = $(`<li><span id="Arcaplus_reloader" class=""><div id="Arcaplus_spin"></div></span></li>`);
     createReloader.prependTo($('.nav-control'));
     const reloaderElem = document.querySelector("#Arcaplus_reloader");
     if (localStorage.getItem("isReload") == "true") {
@@ -46,7 +63,7 @@ $(document).ready(function() { // 베라, 핫딜 제외
             );
           listRateCheck();
         })
-        console.log('리로드')
+        console.log('리로드');
       }
     };
     reloadTimer = setInterval(reloadFunc, 5000);

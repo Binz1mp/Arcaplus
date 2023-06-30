@@ -1,25 +1,26 @@
+.nav-control > li {
+  height: 2.7rem;
+}
 #Arcaplus_reloader {
   /* float: left; */
   background-color: var(--color-bg-navbar);
   border-radius: 999px;
   opacity: .7;
-  margin-right: 0.2rem;
-  display: relative;
-  /* width: 80px; */
-  /* height: 80px; */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#Arcaplus_reloader::before {
+#Arcaplus_spin {
   content: " ";
-  display: block;
+  display: flex;
   width: 75%;
   height: 75%;
-  margin-left: 6px;
-  margin-top: 8px;
   border-radius: 50%;
   border: 5px solid #fff;
   border-color: #fff transparent #fff transparent;
 }
-.reloadOn::before {
+.reloadOn {
   animation: loading 1.2s linear infinite;
 }
 @keyframes loading {

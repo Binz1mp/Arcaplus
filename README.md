@@ -1,4 +1,7 @@
 # Arcaplus
+![Screenshot_1](https://github.com/Binz1mp/Arcaplus/assets/96367152/c45e2d0c-5d4c-4926-9389-7b6369fd4815)
+
+클릭해서 진행
 ## 기능
 1. 추천 수에 따른 게시글 배경색 개선
 

@@ -51,6 +51,10 @@ $(document).ready(function() { // 베라, 핫딜 제외
         localStorage.setItem("isReload", "true");
         reloaderElem.setAttribute("class", "reloadOn");
         reloadTimer = setInterval(reloadFunc, 5000);
+      } else {
+        localStorage.setItem("isReload", "true");
+        reloaderElem.setAttribute("class", "reloadOn");
+        reloadTimer = setInterval(reloadFunc, 5000);
       }
     })
     const reloadFunc = async () => {

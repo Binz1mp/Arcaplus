@@ -18,21 +18,27 @@ $(document).ready(function() { // 베라, 핫딜 제외
         if (postList[i].querySelector('time') !== null) {
           let postList_rate = postList[i].querySelector('.vcol.col-rate').innerText; // 추천
           let postList_time = postList[i].querySelector('time').getAttribute('datetime'); // 작성 시간
-          let tzKr = "Asia/Seoul";
+          let tzKr = "Asia/Seoul"; // 시간대
           let postTime = dayjs(postList_time).tz(tzKr);
+          // 추천 비율이 0 미만이면 게시글 투명도 0.1로
           if (postList_rate < 0) {
             postList[i].style.opacity = '0.1';
-          // } else if (postList_rate > 3) {
-          //   postList[i].style.fontWeight = 'bold';
           }
+          // 새로고침시 게시글 작성 시간도 다시 나오게
           if (dayjs(postList_time).tz(tzKr).isToday()) {
-            postList[i].querySelector('time').innerText = postTime.format('HH:mm');
+            postList[i].querySelector('time').innerText = postTime.format('HH:mm'); // 오늘
           } else {
-            postList[i].querySelector('time').innerText = postTime.format('YYYY.MM.DD');
+            postList[i].querySelector('time').innerText = postTime.format('YYYY.MM.DD'); // 과거
+          }
+          // 새로고침시 썸네일도 다시 나오게
+          if (postList[i].querySelector('img')) {
+            $(postList[i].querySelector('noscript')).replaceWith(postList[i].querySelector('img'));
           }
         }
       }
     }
+
+
 
     const createReloader = $(`<li><span id="Arcaplus_reloader" class=""><div id="Arcaplus_spin"></div></span></li>`);
     createReloader.prependTo($('.nav-control'));

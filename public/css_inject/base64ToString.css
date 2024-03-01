@@ -5,15 +5,14 @@
   user-select: none;
   cursor: pointer;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 1);
   color: #fff;
-  padding: 8px;
   border-radius: 3px;
   font-size: 14px;
   z-index: 2147483647;
 }
 #Arcaplus_tooltipText {
-  cursor: grab;
+  padding: 8px;
 }
 #Arcaplus_tooltipText:active {
   cursor: grabbing;
@@ -35,7 +34,7 @@
   text-align: center;
   transform: translate(-50%, -125%);
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 1);
   padding: 5px;
   border-radius: 3px;
   transition: all 0.075s ease-in-out;

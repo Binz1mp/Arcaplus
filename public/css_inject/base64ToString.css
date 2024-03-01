@@ -1,0 +1,78 @@
+/* BASE64 TOOLTIP CSS */
+#Arcaplus_tooltip {
+  word-wrap: break-word;
+  max-width: 300px;
+  user-select: none;
+  cursor: pointer;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px;
+  border-radius: 3px;
+  font-size: 14px;
+  z-index: 2147483647;
+}
+#Arcaplus_tooltipText {
+  cursor: grab;
+}
+#Arcaplus_tooltipText:active {
+  cursor: grabbing;
+}
+
+#Arcaplus_tooltipContainer {
+  position: relative;
+}
+
+#Arcaplus_tooltipTextHover {
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 50%;
+  width: max-content;
+  text-align: center;
+  transform: translate(-50%, -125%);
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px;
+  border-radius: 3px;
+  transition: all 0.075s ease-in-out;
+}
+#Arcaplus_tooltip:hover #Arcaplus_tooltipTextHover {
+  opacity: 1;
+}
+/* #Arcaplus_tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+} */
+#Arcaplus_tooltip #Arcaplus_tooltipTextHover::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+}
+#Arcaplus_tooltipTextHoverCopy,
+#Arcaplus_tooltipTextHoverGoto {
+  border-radius: 3px;
+  padding: 5px;
+}
+#Arcaplus_tooltipTextHoverCopy:hover,
+#Arcaplus_tooltipTextHoverGoto:hover {
+  background-color: gray;
+}
+
+#Arcaplus_tooltipTextTemp {
+  visibility: hidden;
+  position: absolute;
+}

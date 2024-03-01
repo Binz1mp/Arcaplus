@@ -1,5 +1,6 @@
 const dayjs = require('dayjs');
 var $ = require( "jquery" );
+require("jquery-ui/ui/widgets/draggable");
 var utc = require('dayjs/plugin/utc');
 var timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
 var isToday = require('dayjs/plugin/isToday')
@@ -7,8 +8,8 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isToday);
 
-$(document).ready(function() { // 베라, 핫딜 제외
-  if (window.location.href.indexOf("arca.live/b/") > -1 &&
+$(document).ready(function() {
+  if (window.location.href.indexOf("arca.live/b/") > -1 && // 베라, 핫딜 제외
   window.location.href.indexOf("arca.live/b/live") === -1 &&
   window.location.href.indexOf("arca.live/b/hotdeal") === -1
   ) {
@@ -78,5 +79,5 @@ $(document).ready(function() { // 베라, 핫딜 제외
     };
     reloadTimer = setInterval(reloadFunc, 5000);
     listRateCheck();
-  }
-})
+  };
+});

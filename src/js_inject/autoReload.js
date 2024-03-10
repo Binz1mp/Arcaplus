@@ -1,9 +1,8 @@
 const dayjs = require('dayjs');
-var $ = require( "jquery" );
-require("jquery-ui/ui/widgets/draggable");
-var utc = require('dayjs/plugin/utc');
-var timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
-var isToday = require('dayjs/plugin/isToday')
+const $ = require( "jquery" );
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
+const isToday = require('dayjs/plugin/isToday')
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isToday);

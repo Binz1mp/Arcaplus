@@ -1,6 +1,6 @@
 {
   "name": "arcaplus",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "아카라이브의 사용감을 개선해줍니다.",
   "private": true,
   "scripts": {
@@ -24,7 +24,10 @@
   "dependencies": {
     "chrome-extension-cli": "^1.5.0",
     "dayjs": "^1.11.10",
+    "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
-    "jquery-ui": "^1.13.2"
+    "jquery-ui": "^1.13.2",
+    "jszip": "^3.10.1",
+    "jszip-utils": "^0.1.0"
   }
 }

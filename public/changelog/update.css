@@ -9,6 +9,10 @@ div {
 a {
   text-decoration: none;
 }
+h2 {
+  color: #ebebeb;
+  margin-bottom: 8px;
+}
 .greetings {
   color: #a39d9d;
 }

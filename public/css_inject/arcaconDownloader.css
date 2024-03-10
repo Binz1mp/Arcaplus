@@ -1,0 +1,16 @@
+.reply-form-voice-button.btn-arcaconDownload {
+  position: relative;
+  overflow: hidden;
+}
+.reply-form-voice-button.btn-arcaconDownload > *:not(#arcaconDownloadProgress) {
+  z-index: 1;
+}
+.reply-form-voice-button.btn-arcaconDownload > .ion-android-happy {
+  font-size: 1.4em;
+  margin-right: 0.2em;
+}
+#arcaconDownloadProgress {
+  position: absolute;
+  height: 100%;
+  background-color: #333;
+}

@@ -1,4 +1,5 @@
-var $ = require( "jquery" );
+const $ = require( "jquery" );
+require("jquery-ui/ui/widgets/draggable");
 
 function b64DecodeUnicode(str) {
   // Going backwards: from bytestream, to percent-encoding, to original string.

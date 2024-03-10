@@ -10,7 +10,11 @@ const config = (env, argv) =>
   merge(common, {
         entry: {
       popup: PATHS.src + '/popup.js',
-      contentScript: [PATHS.injectSrc + '/autoReload.js', PATHS.injectSrc + '/base64ToString.js'],
+      contentScript: [
+        PATHS.injectSrc + '/autoReload.js',
+        PATHS.injectSrc + '/base64ToString.js',
+        PATHS.injectSrc + '/arcaconDownloader.js'
+      ],
       background: PATHS.src + '/background.js',
     },
     devtool: argv.mode === 'production' ? false : 'source-map',

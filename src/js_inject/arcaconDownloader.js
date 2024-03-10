@@ -3,11 +3,15 @@ const JSZip = require("jszip");
 require("file-saver");
 // require("jszip-utils");
 let zip = new JSZip();
-let arcaPostURLRegex = /^https:\/\/arca\.live\/b\/([a-zA-Z0-9]+)\/(\d+)(\?[^#\s]*)?$/; // 아카라이브 게시글 url 정규식
+let arcaPostURLRegex1 = /^https:\/\/arca\.live\/b\/[^\/]+\/\d+\/\d+$/; // 아카라이브 게시글 url 정규식
+let arcaPostURLRegex2 = /^https:\/\/arca\.live\/b\/[^\/]+\/\d+$/; // 아카라이브 게시글 url 정규식
 
 $(document).ready(function() {
   let urlPost = new URL(window.location.href);
-  if (arcaPostURLRegex.test(urlPost.origin + urlPost.pathname)) {
+  if (
+    arcaPostURLRegex1.test(urlPost.origin + urlPost.pathname)
+    || arcaPostURLRegex2.test(urlPost.origin + urlPost.pathname)
+  ) {
     let arcaconFormContainer = $('.reply-form-button-container'); // 댓글 컨테이너
     let arcaconButton = $('.reply-form-arcacon-button.btn-namlacon'); // 아카콘 버튼
     let arcaconWrapper = $('.namlacon'); // 아카콘 버튼 누르면 보이는 영역

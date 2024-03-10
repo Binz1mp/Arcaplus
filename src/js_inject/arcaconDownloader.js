@@ -27,7 +27,7 @@ $(document).ready(function() {
     // 아카콘 다운로드 버튼을 생성한다.
     arcaconFormContainer.append(`
       <button class="reply-form-voice-button btn-arcaconDownload" type="button" tabindex="105" style="display: none;">
-        <span class="ion-android-happy"></span>
+        <span class="ion-android-download"></span>
         <span class="text" id="arcaconDownloadText">&nbsp;아카콘 다운로드</span>
         <div id="arcaconDownloadProgress" style="width: 0%;"></div>
       </button>

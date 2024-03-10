@@ -5,7 +5,7 @@
 .reply-form-voice-button.btn-arcaconDownload > *:not(#arcaconDownloadProgress) {
   z-index: 1;
 }
-.reply-form-voice-button.btn-arcaconDownload > .ion-android-happy {
+.reply-form-voice-button.btn-arcaconDownload > .ion-android-download {
   font-size: 1.4em;
   margin-right: 0.2em;
 }

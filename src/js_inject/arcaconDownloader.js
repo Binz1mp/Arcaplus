@@ -7,10 +7,7 @@ let arcaPostURLRegex = /^https:\/\/arca\.live\/b\/([a-zA-Z0-9]+)\/(\d+)(\?[^#\s]
 
 $(document).ready(function() {
   let urlPost = new URL(window.location.href);
-  if (
-    arcaPostURLRegex.test(urlPost.origin + urlPost.pathname)
-    || (urlPost.origin + urlPost.pathname).includes('https://arca.live/b/')
-  ) {
+  if (arcaPostURLRegex.test(urlPost.origin + urlPost.pathname)) {
     let arcaconFormContainer = $('.reply-form-button-container'); // 댓글 컨테이너
     let arcaconButton = $('.reply-form-arcacon-button.btn-namlacon'); // 아카콘 버튼
     let arcaconWrapper = $('.namlacon'); // 아카콘 버튼 누르면 보이는 영역

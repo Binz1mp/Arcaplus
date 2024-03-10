@@ -1,12 +1,13 @@
 const $ = require( "jquery" );
 const JSZip = require("jszip");
-const FileSaver = require("file-saver");
-require("jszip-utils");
+require("file-saver");
+// require("jszip-utils");
 let zip = new JSZip();
 let arcaPostURLRegex = /^https:\/\/arca\.live\/b\/([a-zA-Z0-9]+)\/(\d+)(\?[^#\s]*)?$/; // 아카라이브 게시글 url 정규식
 
 $(document).ready(function() {
-  if (arcaPostURLRegex.test(window.location.href)) {
+  let urlPost = new URL(window.location.href);
+  if (arcaPostURLRegex.test(urlPost.origin + urlPost.pathname)) {
     let arcaconFormContainer = $('.reply-form-button-container'); // 댓글 컨테이너
     let arcaconButton = $('.reply-form-arcacon-button.btn-namlacon'); // 아카콘 버튼
     let arcaconWrapper = $('.namlacon'); // 아카콘 버튼 누르면 보이는 영역
@@ -37,9 +38,9 @@ $(document).ready(function() {
     // 아카콘별 타이틀 이미지를 클릭하면 해당 이미지의 아이디를 통해서 아카콘 이름을 긁어온다.
     arcaconTitle.on("click", "img", function (e) {
       let arcaconURL = `https://arca.live/e/${$(e.target).data('id')}`;
-      console.log('아이디 ===', $(e.target).data('id'));
+      // console.log('아이디 ===', $(e.target).data('id'));
       if ($(e.target).data('id') === 0) {
-        console.log('타이틀 ===', '최근 사용');
+        // console.log('타이틀 ===', '최근 사용');
         arcaconTitleName = '최근 사용';
       } else {
         fetch(arcaconURL)
@@ -49,7 +50,7 @@ $(document).ready(function() {
           })
           .then(html => {
             let title = new DOMParser().parseFromString(html, 'text/html').querySelector('title').textContent;
-            console.log('타이틀 ===', title);
+            // console.log('타이틀 ===', title);
             arcaconTitleName = title;
           })
           .catch(error => {
@@ -65,7 +66,7 @@ $(document).ready(function() {
       let arcaconsURLArray = [];
       arcacons.children().each(function (index, element) {
         // element == this
-        // console.log(index, element.src)
+        // console.log(index, element.src);
         arcaconsURLArray.push({
           url: element.src,
           format: element.src.includes('.gif?expires=')
@@ -91,9 +92,9 @@ $(document).ready(function() {
             .then((res) => {
               if (res.status === 200) return res.blob();
             })
-            .catch((err) => console.log(err));
+            // .catch((err) => console.log(err));
           if (fetchedFile) {
-            console.log('다운로드중......')
+            // console.log('다운로드중......')
             downloadCount += 1;
             document.querySelector('#arcaconDownloadText').innerHTML = `${downloadCount}/${files.length}`;
             $('#arcaconDownloadProgress').css('width', `calc(${downloadCount}% - 0.5em)`);
@@ -116,6 +117,6 @@ $(document).ready(function() {
     });
 
 
-    console.log('아 지금 내가 게시글에 있다!');
+    // console.log('아 지금 내가 게시글에 있다!');
   }
 })

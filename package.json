@@ -1,6 +1,6 @@
 {
   "name": "arcaplus",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "아카라이브의 사용감을 개선해줍니다.",
   "private": true,
   "scripts": {

@@ -5,6 +5,18 @@ require("file-saver");
 let zip = new JSZip();
 let arcaPostURLRegex1 = /^https:\/\/arca\.live\/b\/[^\/]+\/\d+\/\d+$/; // 아카라이브 게시글 url 정규식
 let arcaPostURLRegex2 = /^https:\/\/arca\.live\/b\/[^\/]+\/\d+$/; // 아카라이브 게시글 url 정규식
+const imageFormatRegex = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i; // 아카라이브 아카콘 파일포멧 정규식
+
+// 아카콘 주소에서 이미지 확장자 추출
+function getImageFormat(target) {
+  const match = target.match(imageFormatRegex);
+  if (match) {
+    const format = match[1].toLowerCase();
+    return format;
+  }
+  return null;
+}
+
 
 $(document).ready(function() {
   let urlPost = new URL(window.location.href);
@@ -73,11 +85,7 @@ $(document).ready(function() {
         // console.log(index, element.src);
         arcaconsURLArray.push({
           url: element.src,
-          format: element.src.includes('.gif?expires=')
-          ? 'gif'
-          : element.src.includes('.png?expires=')
-          ? 'png'
-          : 'jpg'
+          format: getImageFormat(element.src)
         });
       });
       const saveFilesAsZip = (files) => {

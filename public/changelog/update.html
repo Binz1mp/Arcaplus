@@ -12,6 +12,7 @@
 <body>
   <div class="greetings">
     <img id="mainlogo" src="./changelog_images/main.png">
+    <div>아카플러스 v1.2.7</div>
     <h2>안녕하세요
       <span class="author"><a href="https://arca.live/u/@%EC%B0%A9%ED%95%9C%EC%B9%9C%EA%B5%AC"
           target="_blank">착한친구</a></span>입니다.
@@ -25,62 +26,86 @@
       </span>
     </h3>
   </div>
-  <div class="howto">
-    <h2>- 자동 새로고침 사용법 -</h2>
-    <div>
-      <img src="./changelog_images/20240301_001.png">
-      <div>아카라이브 채널 내 우측 하단의 아이콘을 클릭하신 뒤,</div>
-      <div>아이콘이 빙글빙글 도는 것을 확인하셨다면 5초 주기로 채널 게시글이 새로고침됩니다!</div>
+  <details>
+    <summary class="summery-howto">주요 기능 및 사용 방법</summary>
+    <div class="howto">
+      <h2>- 자동 새로고침 사용법 -</h2>
+      <div>
+        <img src="./changelog_images/20240301_001.png">
+        <div>아카라이브 채널 내 우측 하단의 아이콘을 클릭하신 뒤,</div>
+        <div>아이콘이 빙글빙글 도는 것을 확인하셨다면 5초 주기로 채널 게시글이 새로고침됩니다!</div>
+      </div>
+      </br>
+      <h2>- base64 문자 변환 사용법 -</h2>
+      <div>
+        <img src="./changelog_images/20240301_002.png">
+        <div>아카라이브 게시글 내용에서 base64 문자를 선택한 뒤 나타나는 변환하기 버튼을 클릭해줍니다!</div>
+      </div>
+      </br>
+      <div>
+        <img src="./changelog_images/20240301_003.png">
+        <div>1. 복사하기 버튼을 클릭해서 변환된 문자를 복사합니다!</div>
+        <div>2. 또는, 변환된 문자가 URL 링크일 경우, 해당 문자를 클릭해서 페이지를 이동합니다!</div>
+      </div>
+      <h2>- 아카콘 다운로드 사용법 -</h2>
+      <div>
+        <img src="./changelog_images/20240310_001.png" width="720px">
+        <div>아카라이브 아카콘을 구매한 뒤, 아무 게시글에 들어가서 댓글 입력 폼으로 이동합니다.</div>
+        <div>아카콘 다운로드 버튼을 클릭합니다!</div>
+        <img src="./changelog_images/20240310_002.png"><br/>
+        <img src="./changelog_images/20240310_003.png">
+      </div>
+      </br>
     </div>
-    </br>
-    <h2>- base64 문자 변환 사용법 -</h2>
-    <div>
-      <img src="./changelog_images/20240301_002.png">
-      <div>아카라이브 게시글 내용에서 base64 문자를 선택한 뒤 나타나는 변환하기 버튼을 클릭해줍니다!</div>
-    </div>
-    </br>
-    <div>
-      <img src="./changelog_images/20240301_003.png">
-      <div>1. 복사하기 버튼을 클릭해서 변환된 문자를 복사합니다!</div>
-      <div>2. 또는, 변환된 문자가 URL 링크일 경우, 해당 문자를 클릭해서 페이지를 이동합니다!</div>
-    </div>
-    <h2>- 아카콘 다운로드 사용법 -</h2>
-    <div>
-      <img src="./changelog_images/20240310_001.png" width="720px">
-      <div>아카라이브 아카콘을 구매한 뒤, 아무 게시글에 들어가서 댓글 입력 폼으로 이동합니다.</div>
-      <div>아카콘 다운로드 버튼을 클릭합니다!</div>
-      <img src="./changelog_images/20240310_002.png"><br/>
-      <img src="./changelog_images/20240310_003.png">
-    </div>
-    </br>
-  </div>
+  </details>
   <div class="updatelog">
     <h2>- Update Log -</h2>
-    <div class="updatelog-details">
-      <div>
-        <h3>v1.2.6 / 2024-03-13</h3>
-        <div>다운로드한 아카콘의 확장자로 인한 버그를 수정하였습니다.</div>
-        <div>젠장</div>
+    <div class="updatelog">
+      <div class="updatelog-details">
+        <h3 class="updatelog-details-title">v1.2.7 / 2024-03-16</h3>
+        <div class="updatelog-details-content">
+          <div>통일되지 않은 아카콘 사이즈와 webp 확장자가 싫어서 다음과 같은 조치를 취했습니다 :</div>
+          <div>
+            <div>1. 아카콘이 webp일 경우, 이미지 사이즈를 100x100으로 리사이징합니다.</div>
+            <div>
+              아카콘이 png는 보통 100x100으로 업로드하는 것 같고,<br/>
+              webp는 200x200으로 올라오는 것 같아서 일단 100x100으로 사이즈를 통일시켰습니다.
+            </div>
+            <br/>
+            <div>2. 아카콘이 webp일 경우, 이미지 확장자를 webp에서 png로 변환합니다.</div>
+            <div id="gaechu" alt="" srcset=""></div>
+          </div>
+        </div>
+      </div>
+      <div class="updatelog-details">
+        <h3 class="updatelog-details-title">v1.2.6 / 2024-03-13</h3>
+        <div class="updatelog-details-content">
+          <div>다운로드한 아카콘의 확장자로 인한 버그를 수정하였습니다.</div>
+          <div>젠장</div>
+        </div>
+      </div>
+      <div class="updatelog-details">
+        <h3 class="updatelog-details-title">2024-03-10</h3>
+        <div class="updatelog-details-content">
+          <div>아카콘을 다운로드합니다!</div>
+          <div>아카콘 스토어에서 받을 땐 움짤이 mp4로 받아져서 좀 그래갖고... 그래서 맨들었습니다.</div>
+        </div>
       </div>
       <br />
-      <div>
-        <h3>2024-03-10</h3>
-        <div>아카콘을 다운로드합니다!</div>
-        <div>아카콘 스토어에서 받을 땐 움짤이 mp4로 받아져서 좀 그래갖고... 그래서 맨들었습니다.</div>
+      <div class="updatelog-details">
+        <h3 class="updatelog-details-title">2024-03-01</h3>
+        <div class="updatelog-details-content">
+          <div>base64로 인코딩된 문자를 디코드해줍니다!</div>
+          <div>예시:</div>
+          <div>7JWI64WV7ZWY7IS47JqUIOywqe2VnOy5nOq1rOyeheuLiOuLpC4= -> 안녕하세요 착한친구입니다.</div>
+        </div>
       </div>
-      <br />
-      <div>
-        <h3>2024-03-01</h3>
-        <div>base64로 인코딩된 문자를 디코드해줍니다!</div>
-        <div>예시:</div>
-        <div>7JWI64WV7ZWY7IS47JqUIOywqe2VnOy5nOq1rOyeheuLiOuLpC4= -> 안녕하세요 착한친구입니다.</div>
+      <div class="updatelog-details">
+        <h3 class="updatelog-details-title">2023-07-09</h3>
+        <div class="updatelog-details-content">
+          <div>자동 새로고침시 이미지 썸네일이 나오지 않던 이슈를 해결했습니다.</div>
+        </div>
       </div>
-      <br />
-      <div>
-        <h3>2023-07-09</h3>
-        <div>자동 새로고침시 이미지 썸네일이 나오지 않던 이슈를 해결했습니다.</div>
-      </div>
-      <br />
     </div>
   </div>
   <div class="knownissues">

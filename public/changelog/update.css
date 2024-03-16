@@ -1,10 +1,11 @@
 body {
   text-align: center;
   background-color: #131313;
+  color: #ebebeb;
 }
 div {
   font-size: 14px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 a {
   text-decoration: none;
@@ -13,14 +14,39 @@ h2 {
   color: #ebebeb;
   margin-bottom: 8px;
 }
+.center {
+  text-align: center;
+  margin: 10px auto;
+}
 .greetings {
   color: #a39d9d;
 }
+
+.summery-howto {
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #599bd8;
+}
+
 .howto {
   color: rgb(156, 134, 106);
 }
-.updatelog {
-  color: rgb(123, 167, 235);
+.howto > div {
+  font-weight: bold;
+}
+.updatelog-details {
+  width: 720px;
+  text-align: left;
+  margin: auto;
+  padding: 10px 0px;
+}
+.updatelog-details-title {
+  color: #599bd8;
+  margin-bottom: 5px;
+}
+.updatelog-details-content {
+  font-weight: normal !important;
 }
 .knownissues {
   color: #da7e7e;
@@ -38,4 +64,26 @@ h2 {
 }
 .arcaPlus {
   color: #00a495;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 무요 */
+#gaechu {
+  text-align: center;
+  margin: 10px auto;
+  background-image: url('./changelog_images/찌그러진 트릭컬콘_123.png');
+  width: 100px;
+  height: 100px;
+}
+#gaechu:hover {
+  background-image: url('./changelog_images/찌그러진 트릭컬콘_143.png');
 }

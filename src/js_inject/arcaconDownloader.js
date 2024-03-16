@@ -7,109 +7,62 @@ const arcaPostURLRegex2 = /^https:\/\/arca\.live\/b\/[^\/]+\/\d+$/; // 아카라
 const imageFormatRegex = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i; // 아카라이브 아카콘 파일포멧 정규식
 let arcaconTitleName = '최근 사용'; // 아카콘별 타이틀 아이디 - 아이디에 따른 타이틀 네임이 아카콘 폴더에 저장될 예정
 let arcaconsURLArray = []; // 아카콘 주소가 저장된 배열
+let downloadCount = 0; // 다운로드 카운트
+let isDownloading = false; // 다운로드중이면 다시 다운로드 못하게 해
 
 // 아카콘 다운로드
-const saveFilesAsZip = async (files) => {
+const saveFilesAsZip = (files) => {
   const zip = new JSZip();
-  try {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const fetchedFile = await fetchFileWithRetry(file.url);
+  let remoteZips = files.map(async (file, index) => {
+    let fetchedFile = await fetch(file.url, {
+      headers: {
+        pragma: "no-cache",
+        origin: "https://arca.live",
+        referer: "https://arca.live/",
+        "cache-control": "no-cache",
+        "cache-directive": "no-cache",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "cross-site",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.blob();
+        }
+      })
+      // .catch((err) => console.log(err));
+    if (fetchedFile) {
+      // console.log('다운로드중......')
+      if (!isDownloading) { isDownloading = true; }
+      downloadCount += 1;
+      document.querySelector('#arcaconDownloadText').innerHTML = `${downloadCount}/${files.length}`;
+      $('#arcaconDownloadProgress').css('width', `calc(${downloadCount}% - 0.5em)`);
 
-      if (fetchedFile) {
-        // console.log('[ fetchedFile ]', fetchedFile);
-        const downloadCount = i + 1;
-        const totalFiles = files.length;
-        updateDownloadProgress(downloadCount, totalFiles);
-
-        const extension = fetchedFile.type.replace(/image\//, '');
-        const fileName = `${arcaconTitleName}_${downloadCount}.${extension}`;
-        zip.file(fileName, fetchedFile, { binary: true });
-      }
-    }
-    const blob = await zip.generateAsync({ type: 'blob' });
-    saveAs(blob, `${arcaconTitleName}.zip`);
-    resetDownloadProgress();
-  } catch (error) {
-    console.error('Error saving files as ZIP:', error);
-  }
-};
-
-// 파일 재다운로드 필요한지 체크... 그럴 일은 없겠지만.
-const fetchFileWithRetry = async (url, retries = 3) => {
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const originalBlob = await response.blob();
-      const resizedBlob = await resizeImageBlob(originalBlob, 100); // 아카콘 리사이징
-      return resizedBlob;
-    } else {
-      throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
-    }
-  } catch (error) {
-    if (retries > 0) {
-      console.warn(`Retrying fetch for ${url} (${retries} attempts remaining): ${error.message}`);
-      return await fetchFileWithRetry(url, retries - 1);
-    } else {
-      console.error(`Failed to fetch ${url} after ${retries} attempts:`, error);
-      return null;
-    }
-  }
-};
-
-// 아카콘 리사이징
-const resizeImageBlob = (blob, maxWidth) => {
-  return new Promise((resolve, reject) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-
-    img.onload = () => {
-      const width = img.width;
-      const height = img.height;
-      const aspectRatio = width / height;
-
-      if (blob.type === 'image/webp') {
-        let newWidth = maxWidth;
-        let newHeight = Math.round(newWidth / aspectRatio);
-
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        ctx.drawImage(img, 0, 0, newWidth, newHeight);
-
-        canvas.toBlob((resizedBlob) => {
-          resolve(resizedBlob);
-        }, 'image/png', 0.8); // PNG MIME 타입 지정 및 이미지 리사이즈
+      if (fetchedFile.type === 'image/webp') {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const img = await createImageBitmap(fetchedFile);
+        canvas.width = 100;
+        canvas.height = (img.height * 100) / img.width;
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const resizedBlob = await new Promise((resolve) => {
+          canvas.toBlob((blob) => resolve(blob), 'image/png', 1);
+        });
+        zip.file(`${arcaconTitleName}_${index + 1}.png`, resizedBlob, { binary: true });
       } else {
-        resolve(blob);
+        zip.file(`${arcaconTitleName}_${index + 1}.${fetchedFile.type.replace(/image\//, '')}`, fetchedFile, { binary: true });
       }
-    };
-
-    img.onerror = reject;
-    img.src = URL.createObjectURL(blob);
+    }
   });
-};
-
-// 다운로드 진행 과정 업데이트
-const updateDownloadProgress = (downloadCount, totalFiles) => {
-  const downloadText = document.querySelector('#arcaconDownloadText');
-  const progressBar = document.querySelector('#arcaconDownloadProgress');
-
-  if (downloadText && progressBar) {
-    downloadText.innerHTML = `${downloadCount}/${totalFiles}`;
-    progressBar.style.width = `calc(${(downloadCount / totalFiles) * 100}% - 0.5em)`;
-  }
-};
-
-// 다운로드 진행 과정 초기화
-const resetDownloadProgress = () => {
-  const downloadText = document.querySelector('#arcaconDownloadText');
-  const progressBar = document.querySelector('#arcaconDownloadProgress');
-
-  if (downloadText && progressBar) {
-    downloadText.textContent = '아카콘 다운로드';
-    progressBar.style.width = '0%';
-  }
+  Promise.all(remoteZips).then(() => {
+    $('#arcaconDownloadText').text('아카콘 다운로드');
+    downloadCount = 0;
+    isDownloading = false;
+    $('#arcaconDownloadProgress').css('width', `0%`);
+    zip.generateAsync({ type: 'blob' }).then((blob) => {
+      saveAs(blob, `${arcaconTitleName}.zip`);
+    });
+  });
 };
 
 $(document).ready(function() {
@@ -169,21 +122,22 @@ $(document).ready(function() {
 
     // 아카콘 다운로드 버튼을 클릭하면 현재 포커스된 아카콘을 전부 다운로드한다.
     arcaconDownloadButton.click(async function (e) {
-      arcaconsURLArray = [];
       e.preventDefault();
-      const arcacons = $('.emoticons');
-      arcacons.children().each(function (index, element) {
-        // element == this
-        // console.log(index, element.src);
-        arcaconsURLArray.push({
-          url: element.src,
+      if (!isDownloading) {
+        arcaconsURLArray = [];
+        const arcacons = $('.emoticons');
+        arcacons.children().each(function (index, element) {
+          // element == this
+          // console.log(index, element.src);
+          arcaconsURLArray.push({
+            url: element.src,
+          });
+          
         });
-        
-      });
-      saveFilesAsZip(arcaconsURLArray);
+        saveFilesAsZip(arcaconsURLArray);
+      } else {
+        alert('현재 아카콘을 다운로드 중입니다.');
+      }
     });
-
-
-    // console.log('아 지금 내가 게시글에 있다!');
   }
 })

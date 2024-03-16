@@ -17,7 +17,7 @@ const saveFilesAsZip = async (files) => {
       const fetchedFile = await fetchFileWithRetry(file.url);
 
       if (fetchedFile) {
-        console.log('[ fetchedFile ]', fetchedFile);
+        // console.log('[ fetchedFile ]', fetchedFile);
         const downloadCount = i + 1;
         const totalFiles = files.length;
         updateDownloadProgress(downloadCount, totalFiles);

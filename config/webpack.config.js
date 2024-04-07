@@ -13,7 +13,8 @@ const config = (env, argv) =>
       contentScript: [
         PATHS.injectSrc + '/autoReload.js',
         PATHS.injectSrc + '/base64ToString.js',
-        PATHS.injectSrc + '/arcaconDownloader.js'
+        PATHS.injectSrc + '/arcaconDownloader.js',
+        PATHS.injectSrc + '/adBlock.js'
       ],
       background: PATHS.src + '/background.js',
     },

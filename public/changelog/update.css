@@ -87,3 +87,13 @@ h2 {
 #gaechu:hover {
   background-image: url('./changelog_images/찌그러진 트릭컬콘_143.png');
 }
+#joassu {
+  text-align: center;
+  margin: 10px auto;
+  background-image: url('./changelog_images/좋았쓰\ 그레이트\ 돚거콘_1.png');
+  width: 100px;
+  height: 100px;
+}
+#joassu:hover {
+  background-image: url('./changelog_images/좋았쓰\ 그레이트\ 돚거콘_52.png');
+}

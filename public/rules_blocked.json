@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||mediacategory.com^",
+      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "media", "font", "object", "xmlhttprequest", "ping", "csp_report", "websocket", "other"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||arca.live/static/assets/images/empty_ad_sidebar.svg",
+      "resourceTypes": ["image"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "regexFilter": "^https?://arca\\.live/static/assets/images/empty_ad_list-\\d+\\.svg",
+      "resourceTypes": ["image"]
+    }
+  }
+]

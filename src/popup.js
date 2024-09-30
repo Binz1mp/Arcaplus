@@ -8,3 +8,26 @@ for (i = 0; i < popcatImg.length; i++) {
     console.log('pop');
   });
 }
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const toggleBlocking = document.getElementById('toggle-blocking');
+
+  // Load initial state
+  chrome.storage.local.get(['arcaPlus___blockingEnabled'], function(result) {
+      toggleBlocking.checked = result.arcaPlus___blockingEnabled !== false;
+  });
+
+  // Update storage and rules when checkbox is toggled
+  toggleBlocking.addEventListener('change', function() {
+      const isEnabled = this.checked;
+      chrome.storage.local.set({arcaPlus___blockingEnabled: isEnabled}, function() {
+          chrome.declarativeNetRequest.updateEnabledRulesets({
+              enableRulesetIds: isEnabled ? ['ruleset_1'] : [],
+              disableRulesetIds: isEnabled ? [] : ['ruleset_1']
+          });
+      });
+  });
+});

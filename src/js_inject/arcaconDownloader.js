@@ -99,6 +99,10 @@ $(document).ready(function() {
     // 아카콘 다운로드 버튼을 클릭하면 현재 포커스된 아카콘을 전부 다운로드한다.
     arcaconDownloadButton.click(async function (e) {
       e.preventDefault();
+      if (arcaconWrapper.css('display') === 'none') {
+        alert('아카콘 리스트를 열어주세요.');
+        return;
+      }
       arcaconTitleName = $('.arcaconPicker .package-item.focused').data('packageName');
       arcaconPackageId = $('.arcaconPicker .package-item.focused').data('packageId');
       arcaconImageContainer = $('.package-wrap[data-package-id="' + arcaconPackageId + '"]');

@@ -43,28 +43,28 @@ $(document).ready(function() {
     const createReloader = $(`<li><span id="Arcaplus_reloader" class=""><div id="Arcaplus_spin"></div></span></li>`);
     createReloader.prependTo($('.nav-control'));
     const reloaderElem = document.querySelector("#Arcaplus_reloader");
-    if (localStorage.getItem("isReload") == "true") {
+    if (localStorage.getItem("arcaPlus___isReload") == "true") {
       reloaderElem.setAttribute("class", "reloadOn");
-    } else if (localStorage.getItem("isReload") == "false") {
+    } else if (localStorage.getItem("arcaPlus___isReload") == "false") {
       reloaderElem.setAttribute("class", "");
     }
     reloaderElem.addEventListener("click", function() {
-      if (localStorage.getItem("isReload") == "true") {
-        localStorage.setItem("isReload", "false");
+      if (localStorage.getItem("arcaPlus___isReload") == "true") {
+        localStorage.setItem("arcaPlus___isReload", "false");
         reloaderElem.setAttribute("class", "");
         clearInterval(reloadTimer);
-      } else if (localStorage.getItem("isReload") == "false") {
-        localStorage.setItem("isReload", "true");
+      } else if (localStorage.getItem("arcaPlus___isReload") == "false") {
+        localStorage.setItem("arcaPlus___isReload", "true");
         reloaderElem.setAttribute("class", "reloadOn");
         reloadTimer = setInterval(reloadFunc, 5000);
       } else {
-        localStorage.setItem("isReload", "true");
+        localStorage.setItem("arcaPlus___isReload", "true");
         reloaderElem.setAttribute("class", "reloadOn");
         reloadTimer = setInterval(reloadFunc, 5000);
       }
     })
     const reloadFunc = async () => {
-      if (localStorage.getItem("isReload") == "true") {
+      if (localStorage.getItem("arcaPlus___isReload") == "true") {
         $.get(window.location.href, function(data) {
           $('.list-table.table')
             .replaceWith(new DOMParser()

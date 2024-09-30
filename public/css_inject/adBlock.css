@@ -1,0 +1,19 @@
+/* 아카라이브 메인 페이지 배너 광고 */
+/* div.board-summary > div.ad { display: none !important; } */
+/* 사이드바 광고 */
+/* aside.sidebar.right-sidebar > div.sticky-container > div.ad { display: none !important; } */
+/* 채널 배너 구글 광고 */
+/* div.board-article-list > div.ad > ins.adsbygoogle { display: none !important; } */
+
+/* 댓글 필터 블러 처리 말고 대비 처리로 */
+.body .board-article .article-comment .list-area .comment-item .content .message .text pre.blur {
+	filter: contrast(0.1) !important;
+}
+
+.body .ad {
+	height: auto !important;
+	max-height: 90px !important;
+}
+.body .ad iframe {
+	display: none !important;
+}

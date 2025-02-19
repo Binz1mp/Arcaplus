@@ -45,10 +45,10 @@ async function fetchArcaconData(packageId) {
 const saveFilesAsZip = (files) => {
   const zip = new JSZip();
 
-  // 파일 각각 fetch -> blob -> zip에 추가
   let remoteZips = files.map(async (file, index) => {
     if (!file.url) return;
 
+    // 파일 가져오기
     const response = await fetch(file.url, {
       headers: {
         pragma: "no-cache",
@@ -72,47 +72,40 @@ const saveFilesAsZip = (files) => {
     document.querySelector("#arcaconDownloadText").innerHTML = `${downloadCount}/${files.length}`;
     $("#arcaconDownloadProgress").css("width", `calc(${downloadCount}% - 0.5em)`);
 
-    // 파일 타입 확인
-    // const mimeType = fetchedFile.type; // ex) 'image/webp', 'video/mp4', 'image/png'...
+    // 파일 이름
     const arcaconIndex = `${arcaconTitleName}_${index + 1}`;
-    // // 1) image/webp -> (선택적으로) PNG 리사이즈
-    // if (mimeType === "image/webp") {
-    //   const shouldResize = false; // 필요시 true로
-    //   if (shouldResize) {
-    //     // 리사이징 로직
-    //     const canvas = document.createElement("canvas");
-    //     const context = canvas.getContext("2d");
-    //     const img = await createImageBitmap(fetchedFile);
-    //     canvas.width = 100;
-    //     canvas.height = (img.height * 100) / img.width;
-    //     context.drawImage(img, 0, 0, canvas.width, canvas.height);
-    //     const resizedBlob = await new Promise((resolve) => {
-    //       canvas.toBlob((blob) => resolve(blob), "image/png", 1);
-    //     });
-    //     zip.file(`${arcaconIndex}.png`, resizedBlob, { binary: true });
-    //   } else {
-    //     // 그대로 webp로 압축에 추가
-    //     zip.file(`${arcaconIndex}.webp`, fetchedFile, { binary: true });
-    //   }
-    // }
-    // // 2) video/mp4 -> 확장자 mp4 그대로
-    // else if (mimeType === "video/mp4") {
-    //   zip.file(`${arcaconIndex}.mp4`, fetchedFile, { binary: true });
-    // }
-    // // 3) 그 외의 이미지 타입
-    // else if (mimeType.startsWith("image/")) {
-    //   // ex) image/png, image/jpeg, ...
-    //   const extension = mimeType.split("/")[1];
-    //   zip.file(`${arcaconIndex}.${extension}`, fetchedFile, { binary: true });
-    // }
-    // // 4) 혹시 file.type이 비어있거나 기타 타입인 경우
-    // else {
-      // 만약 file.type 속성이 API에서 넘어왔다면 그 정보를 사용 가능
-      // 예: if (file.type === 'image' || 'video'), 등
-      const fallbackExt = file.type === "video" ? "gif" : "png"; // 혹은 "bin" 등등
-      // 여기서는 간단히 확장자 없이 처리
-      zip.file(fallbackExt ? `${arcaconIndex}.${fallbackExt}` : arcaconIndex, fetchedFile, { binary: true });
-    // }
+
+    // 1) video 타입 → GIF 확장자로 바로 저장
+    if (file.type === "video") {
+      zip.file(`${arcaconIndex}.gif`, fetchedFile, { binary: true });
+    } 
+    // 2) image(webp 등) → 100×100 PNG로 리사이즈
+    else {
+      // fetchedFile이 (예: webp, png, jpg...) 일 수 있으므로, MIME 타입을 확인해도 됨
+      // 여기서는 단순히 "video가 아니면 이미지"라고 가정
+
+      // createImageBitmap를 이용해 이미지 로드
+      const img = await createImageBitmap(fetchedFile);
+
+      // 100×100 리사이즈
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = 100;
+      canvas.height = 100;
+
+      // drawImage로 (0,0)에 100×100으로 그리기
+      context.drawImage(img, 0, 0, 100, 100);
+
+      // 리사이즈된 이미지를 다시 Blob(PNG)으로 추출
+      const resizedBlob = await new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        }, "image/png", 1.0);
+      });
+
+      // 최종적으로 PNG 파일로 zip에 추가
+      zip.file(`${arcaconIndex}.png`, resizedBlob, { binary: true });
+    }
   });
 
   // 모든 파일 처리가 끝나면 ZIP 생성 후 다운로드
@@ -120,13 +113,14 @@ const saveFilesAsZip = (files) => {
     $("#arcaconDownloadText").text("아카콘 다운로드");
     downloadCount = 0;
     isDownloading = false;
-    $("#arcaconDownloadProgress").css("width", `0%`);
+    $("#arcaconDownloadProgress").css("width", "0%");
 
     zip.generateAsync({ type: "blob" }).then((blob) => {
       saveAs(blob, `${arcaconTitleName}.zip`);
     });
   });
 };
+
 
 // DOM 로드 완료 시
 $(document).ready(function () {

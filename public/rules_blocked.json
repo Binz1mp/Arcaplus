@@ -5,7 +5,11 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||mediacategory.com^",
-      "resourceTypes": ["main_frame", "sub_frame", "script", "image", "media", "font", "object", "xmlhttprequest", "ping", "csp_report", "websocket", "other"]
+      "resourceTypes": [
+        "main_frame", "sub_frame", "script", "image", "media",
+        "font", "object", "xmlhttprequest", "ping", "csp_report",
+        "websocket", "other"
+      ]
     }
   },
   {
@@ -24,6 +28,19 @@
     "condition": {
       "regexFilter": "^https?://arca\\.live/static/assets/images/empty_ad_list-\\d+\\.svg",
       "resourceTypes": ["image"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||arca.live/api/v1/pagead",
+      "resourceTypes": [
+        "main_frame", "sub_frame", "script", "image", "media",
+        "font", "object", "xmlhttprequest", "ping", "csp_report",
+        "websocket", "other"
+      ]
     }
   }
 ]
